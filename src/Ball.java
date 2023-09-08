@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Ball {
+public class Ball extends Rectangle{
 
     Ball() {
 

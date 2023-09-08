@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Paddles {
+public class Paddles extends Rectangle{
 
     Paddles() {
 
