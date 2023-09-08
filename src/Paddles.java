@@ -3,6 +3,9 @@ import java.awt.event.KeyEvent;
 
 public class Paddles extends Rectangle{
 
+    int id;
+    int yVelocity;
+
     Paddles() {
 
     }
