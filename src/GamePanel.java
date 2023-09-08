@@ -7,7 +7,7 @@ import java.util.Random;
 public class GamePanel extends JPanel implements Runnable{
 
     static final int GAME_WIDTH = 1000;
-    static final int GAME_HEIGHT = (int)(GAME_WIDTH * (5/9));
+    static final int GAME_HEIGHT = (int)(GAME_WIDTH * (0.5555));
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     static final int BALL_DIAMETER = 20;
     static final int PADDLE_WIDTH = 25;
@@ -22,7 +22,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     GamePanel() {
+        newPaddles();
+        newBall();
+        score = new Score(GAME_WIDTH, GAME_HEIGHT);
+        this.setFocusable(true);
+        this.addKeyListener(new AL());
+        this.setPreferredSize(SCREEN_SIZE);
 
+        gameThread = new Thread(this);
+        gameThread.start();
     }
 
     public void newBall() {
@@ -34,7 +42,10 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void paint(Graphics g) {
-
+        image = createImage(getWidth(), getHeight());
+        graphics = image.getGraphics();
+        draw(graphics);
+        g.drawImage(image, 0, 0, this);
     }
 
     public void draw(Graphics g) {
@@ -50,6 +61,21 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void run() {
+        long lastTime = System.nanoTime();
+        double ammountOfTics = 60;
+        double ns = 1000000000 / ammountOfTics;
+        double delta = 0;
+        while(true) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            if(delta >= 1) {
+                move();
+                checkCollision();
+                repaint();
+                delta--;
+            }
+        }
 
     }
 

@@ -2,12 +2,12 @@ import java.awt.*;
 
 public class Score extends Rectangle{
 
-    static int gameWidth;
-    static int gameHeight;
+    static int GAME_WIDTH;
+    static int GAME_HEIGHT;
     int player1;
     int player2;
 
-    Score() {
+    Score(int GAME_WIDTH, int GAME_HEIGHT) {
 
     }
 
